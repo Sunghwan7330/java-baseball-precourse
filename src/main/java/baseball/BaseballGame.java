@@ -1,9 +1,7 @@
 package baseball;
 
 import camp.nextstep.edu.missionutils.Randoms;
-import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class BaseballGame {
     private int mNum[];
@@ -41,14 +39,14 @@ public class BaseballGame {
 
     private int[] convertStr2IntArr(String strnum) {
         int res[] = new int[3];
-        for (int i=0; i<res.length; i++)
+        for (int i = 0; i < res.length; i++)
             res[i] = strnum.charAt(i) - 0x30;
 
         return res;
     }
 
     private boolean setMemberNumber(int[] number) {
-        for (int i=0; i<mNum.length; i++)
+        for (int i = 0; i < mNum.length; i++)
             mNum[i] = number[i];
 
         return true;
