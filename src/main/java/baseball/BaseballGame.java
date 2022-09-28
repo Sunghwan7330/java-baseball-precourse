@@ -39,12 +39,17 @@ public class BaseballGame {
         return true;
     }
 
-    private boolean setMemberNumber(int number) {
-        mNum[0] = number / 100;
-        number %= 100;
-        mNum[1] = number / 10;
-        number %= 10;
-        mNum[2] = number;
+    private int[] convertStr2IntArr(String strnum) {
+        int res[] = new int[3];
+        for (int i=0; i<res.length; i++)
+            res[i] = strnum.charAt(i) - 0x30;
+
+        return res;
+    }
+
+    private boolean setMemberNumber(int[] number) {
+        for (int i=0; i<mNum.length; i++)
+            mNum[i] = number[i];
 
         return true;
     }
@@ -52,7 +57,8 @@ public class BaseballGame {
     public boolean setNumber(String strnum) {
         int inputNum = parseStr2Int(strnum);
         isVaildNumber(inputNum);
-        setMemberNumber(inputNum);
+        int arrnum[] = convertStr2IntArr(strnum);
+        setMemberNumber(arrnum);
 
         return true;
     }
