@@ -47,4 +47,59 @@ public class BaseballGameTest {
         assertThat(game.getNum())
                 .isEqualTo(new int[]{1, 2, 3});
     }
+
+    @Test
+    public void baseballGameSetNum123Input123Test() {
+        BaseballGame game = new BaseballGame();
+        assertThat(game.setNumber("123"))
+                .isEqualTo(true);
+        assertThat(game.getNum())
+                .isEqualTo(new int[]{1, 2, 3});
+        assertThat(game.inputCompareNumber("123"))
+                .isEqualTo(new int[]{3, 0});
+    }
+
+    @Test
+    public void baseballGameSetNum123Input321Test() {
+        BaseballGame game = new BaseballGame();
+        assertThat(game.setNumber("123"))
+                .isEqualTo(true);
+        assertThat(game.getNum())
+                .isEqualTo(new int[]{1, 2, 3});
+        assertThat(game.inputCompareNumber("321"))
+                .isEqualTo(new int[]{1, 2});
+    }
+
+    @Test
+    public void baseballGameSetNum123Input456Test() {
+        BaseballGame game = new BaseballGame();
+        assertThat(game.setNumber("123"))
+                .isEqualTo(true);
+        assertThat(game.getNum())
+                .isEqualTo(new int[]{1, 2, 3});
+        assertThat(game.inputCompareNumber("456"))
+                .isEqualTo(new int[]{0, 0});
+    }
+
+    @Test
+    public void baseballGameSetNum123Input231Test() {
+        BaseballGame game = new BaseballGame();
+        assertThat(game.setNumber("123"))
+                .isEqualTo(true);
+        assertThat(game.getNum())
+                .isEqualTo(new int[]{1, 2, 3});
+        assertThat(game.inputCompareNumber("231"))
+                .isEqualTo(new int[]{0, 3});
+    }
+
+    /*
+    @Test
+    public void baseballGameSetNum012Test() {
+        BaseballGame game = new BaseballGame();
+        assertThatThrownBy(() -> game.setNumber("012"))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("입력된 값이 잘못되었습니다 -> 012");
+    }
+     */
+
 }
