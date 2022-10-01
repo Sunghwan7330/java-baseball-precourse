@@ -19,20 +19,28 @@ public class BaseballGameHandler {
         System.out.print("숫자를 입력해주세요 : ");
         String inputNum = Console.readLine();
         int res[] = mBbGame.inputCompareNumber(inputNum);
-        printResult(res[0], res[1]);
-        if (res[0] == 3) {
-            System.out.println("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-            System.out.println("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
-            int resNum = Integer.parseInt(Console.readLine());
-            if (resNum == 1)
-                setNewGame();
-            else
-                return false;  //TODO else 제거하야함
-        }
+        int strike = res[0];
+        int ball = res[1];
+        printResult(strike, ball);
+        if (!processThreeStrike(strike))
+            return false;
+
         return true;
     }
 
-    private void printResult (int strike, int ball) {
+    private boolean processThreeStrike(int strike) {
+        if (strike != 3) return true;
+
+        System.out.println("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+        System.out.println("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
+        int resNum = Integer.parseInt(Console.readLine());  //TODO 입력 정합성 검사 추가 필요
+        if (resNum != 1) return false;
+
+        setNewGame();
+        return true;
+    }
+
+    private void printResult(int strike, int ball) {
         if (strike == 0 && ball == 0) {
             System.out.println("낫싱");
             return;
