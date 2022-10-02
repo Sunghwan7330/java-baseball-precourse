@@ -28,12 +28,28 @@ public class BaseballGameHandler {
         return true;
     }
 
+    private int getInputResult() {
+        String input = Console.readLine();
+        if (input.length() != 1)
+            throw new IllegalArgumentException("입력이 잘못되었습니다. -> " + input);
+
+        char c = input.charAt(0);
+        if (!((c == 0x31) || (c == 0x32)))
+            throw new IllegalArgumentException("입력이 잘못되었습니다. -> " + input);
+
+        return (int) c & 0x0f;
+    }
+
+    private int requestRegame() {
+        System.out.println("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
+        return getInputResult();
+    }
+
     private boolean processThreeStrike(int strike) {
         if (strike != 3) return true;
 
         System.out.println("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-        System.out.println("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
-        int resNum = Integer.parseInt(Console.readLine());  //TODO 입력 정합성 검사 추가 필요
+        int resNum = requestRegame();
         if (resNum != 1) return false;
 
         setNewGame();
