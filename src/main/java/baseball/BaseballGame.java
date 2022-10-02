@@ -24,19 +24,52 @@ public class BaseballGame {
         return true;
     }
 
-    private int parseStr2Int(String strnum) {
-        int inputNum;
-        try {
-            inputNum = Integer.parseInt(strnum);
-        } catch (Exception e) {
-            String errStr = "숫자가 아닌 값이 입력되었습니다 -> " + strnum;
+    private boolean checkVaildInputLength(String strnum) {
+        if (strnum.length() != 3) {
+            String errStr = "입력된 문자의 길이가 잘못되었습니다. -> " + strnum;
             throw new IllegalArgumentException(errStr);
         }
-        return inputNum;
+        return true;
     }
 
-    private boolean isVaildNumber(int number) {
-        //TODO 입력값 범위체크 로직 추가 필요
+    private boolean checkVaildNumber(String strnum) {
+        for (byte n : strnum.getBytes()) {
+            if ((n & 0x30) != 0x30) {
+                String errStr = "숫자가 아닌 값이 입력되었습니다. -> " + strnum;
+                throw new IllegalArgumentException(errStr);
+            }
+        }
+        return true;
+    }
+
+    private boolean checkZeroInNumber(String strnum) {
+        for (byte n : strnum.getBytes()) {
+            if (n  == 0x30) {
+                String errStr = "0은 입력할 수 없습니다. -> " + strnum;
+                throw new IllegalArgumentException(errStr);
+            }
+        }
+        return true;
+    }
+    private boolean checkDuplicatNumber(String strnum) {
+        int checkNum = 0;
+        for (byte n : strnum.getBytes()) {
+            n ^= 0x30;
+            if ((checkNum & n) != 0) {
+                String errStr = "중복된 숫자가 있습니다. -> " + strnum;
+                throw new IllegalArgumentException(errStr);
+            }
+            checkNum = checkNum << n;
+        }
+        return true;
+    }
+
+    private boolean isVaildNumber(String strnum) {
+        checkVaildInputLength(strnum);
+        checkVaildNumber(strnum);
+        checkZeroInNumber(strnum);
+        checkDuplicatNumber(strnum);
+
         return true;
     }
 
@@ -56,8 +89,7 @@ public class BaseballGame {
     }
 
     public boolean setNumber(String strnum) {
-        int inputNum = parseStr2Int(strnum);
-        isVaildNumber(inputNum);
+        isVaildNumber(strnum);
         int arrnum[] = convertStr2IntArr(strnum);
         setMemberNumber(arrnum);
 
@@ -90,8 +122,7 @@ public class BaseballGame {
     }
 
     public int[] inputCompareNumber(String strnum) {
-        int inputNum = parseStr2Int(strnum);
-        isVaildNumber(inputNum);
+        isVaildNumber(strnum);
         mInputNum = convertStr2IntArr(strnum);
 
         setStrike();

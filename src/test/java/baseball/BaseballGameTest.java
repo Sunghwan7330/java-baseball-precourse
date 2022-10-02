@@ -92,14 +92,41 @@ public class BaseballGameTest {
                 .isEqualTo(new int[]{0, 3});
     }
 
-    /*
+    @Test
+    public void baseballGameSetNum246Input231Test() {
+        BaseballGame game = new BaseballGame();
+        assertThat(game.setNumber("246"))
+                .isEqualTo(true);
+        assertThat(game.getNum())
+                .isEqualTo(new int[]{2, 4, 6});
+        assertThat(game.inputCompareNumber("231"))
+                .isEqualTo(new int[]{1, 0});
+    }
+
+    @Test
+    public void baseballGameSetNuma12Test() {
+        String inputNum = "a12";
+        BaseballGame game = new BaseballGame();
+        assertThatThrownBy(() -> game.setNumber(inputNum))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("숫자가 아닌 값이 입력되었습니다. -> " + inputNum);
+    }
+
+    @Test
+    public void baseballGameSetNum1234Test() {
+        String inputNum = "1234";
+        BaseballGame game = new BaseballGame();
+        assertThatThrownBy(() -> game.setNumber(inputNum))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("입력된 문자의 길이가 잘못되었습니다. -> " + inputNum);
+    }
     @Test
     public void baseballGameSetNum012Test() {
+        String inputNum = "012";
         BaseballGame game = new BaseballGame();
-        assertThatThrownBy(() -> game.setNumber("012"))
+        assertThatThrownBy(() -> game.setNumber(inputNum))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("입력된 값이 잘못되었습니다 -> 012");
+                .hasMessage("0은 입력할 수 없습니다. -> " + inputNum);
     }
-     */
 
 }
